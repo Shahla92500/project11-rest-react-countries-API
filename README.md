@@ -12,7 +12,7 @@ Currently, two official plugins are available:
 The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
 Note: This will impact Vite dev & build performances.
-Router is used 
+Router is used : npm install react-router-dom   
 
 ## Expanding the ESLint configuration
 
@@ -74,3 +74,4 @@ export default defineConfig([
   },
 ])
 ```
+I wish to have more time to refactor it. I think the files are long and will be difficcult to fix the issues. and also I wish to work more on its styling
