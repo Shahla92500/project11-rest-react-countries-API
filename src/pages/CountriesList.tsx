@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import CountryDetail from "./CountryDetail";
+import { type ApiCountry } from "../types/types";
+import {Link} from "react-router-dom"
 
 const API_URL =
   "https://restcountries.com/v3.1/all?fields=name,population,region,capital,flags";
 
 export default function CountriesList() {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState<ApiCountry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [searchCountry, setSearchCountry] = useState("");
   const [regionFilter, setRegionFilter] = useState("All");
 
@@ -35,13 +38,9 @@ export default function CountriesList() {
     fetchCountries();
   }, []);
 
-  if (isLoading) {
-    return <p>Loading countries...</p>;
-  }
-
-  if (error) {
-    return <p> {error}</p>;
-  }
+  if (isLoading) return <p>Loading countries...</p>;
+  if (error) return <p> {error}</p>;
+  
  // unique region list
    const regions = Array.from(
     new Set(countries.map((c) => c.region).filter(Boolean))
@@ -53,7 +52,7 @@ export default function CountriesList() {
       .includes(searchCountry.toLowerCase())
     const matchesRegion = regionFilter === "All" || country.region === regionFilter;
     return matchesSearch && matchesRegion;
-});
+  });
   return (
     <main >
       {/* search bar */}
@@ -82,10 +81,15 @@ export default function CountriesList() {
 
       {/* main sextion  */}
       <section className="countries-grid">
-          {filteredCountries.map((country) => (
-            <article key={country.name.common} className="country-card">
+        {filteredCountries.map((country) => (
+          <Link
+            key={country.name.common}
+            to={`/country/${encodeURIComponent(country.name.common)}`}
+            className="country-card-link"
+          >
+            <article className="country-card">
               <img
-                src={country.flags?.png}
+                src={country.flags.png}
                 alt={country.name.common}
                 className="country-flag"
               />
@@ -105,7 +109,8 @@ export default function CountriesList() {
                 </p>
               </div>
             </article>
-      ))}
+          </Link>
+        ))}
       </section>
     </main>
   );

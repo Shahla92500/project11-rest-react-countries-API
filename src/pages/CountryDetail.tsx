@@ -1,7 +1,13 @@
 import type {Country} from "../types/data"
+import { type ApiDetailCountry } from "../types/types";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 interface CountryDetailProps {
   country: Country;
 }
+
+const DETAIL_API_BASE = "https://restcountries.com/v3.1/name";
 
 export default function CountryDetail({ country }: CountryDetailProps){
   // console.log(CountryCardProps)
