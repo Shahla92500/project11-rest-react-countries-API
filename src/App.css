@@ -34,6 +34,7 @@ body {
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
+  color: blue;
 }
 
 .header-theme-icon {
@@ -184,21 +185,14 @@ article.country-card {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-size: 0.9rem;
   background-color: #ffffff;
+  color: blue;
 }
 
-
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-} */
-/* .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.country-card-link {
+  text-decoration: none;  /* removes underline */
+  color: inherit;         /* normal text color */
+  display: block;         /* the card behaves like a block */
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-} */
 
 /* @keyframes logo-spin {
   from {

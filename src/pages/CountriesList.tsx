@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CountryDetail from "./CountryDetail";
+
 import { type ApiCountry } from "../types/types";
 import {Link} from "react-router-dom"
 
