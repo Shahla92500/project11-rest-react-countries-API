@@ -6,7 +6,8 @@ const DETAIL_API_BASE =
   "https://restcountries.com/v3.1/name";
 
 export default function CountryDetail() {
-  const { name } = useParams<{ name: string }>();
+  const params = useParams<{ name: string }>();
+  const name = params.name; // type: string | undefined
   const navigate = useNavigate();
 
   const [country, setCountry] = useState<ApiDetailCountry | null>(null);
@@ -14,16 +15,20 @@ export default function CountryDetail() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!name) return;
+    if (!name) {
+      setError("No country name provided");
+      setIsLoading(false);
+      return;
+    }
 
-    async function fetchCountryDetail() {
+    async function fetchCountryDetail(countryName: string) {
       try {
         setIsLoading(true);
         setError(null);
 
         const res = await fetch(
           `${DETAIL_API_BASE}/${encodeURIComponent(
-            name
+            countryName
           )}?fullText=true&fields=name,population,region,subregion,capital,tld,currencies,languages,borders,flags`
         );
 
@@ -40,7 +45,7 @@ export default function CountryDetail() {
       }
     }
 
-    fetchCountryDetail();
+    fetchCountryDetail(name);
   }, [name]);
 
   if (isLoading) return <p>Loading country...</p>;
